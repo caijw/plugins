@@ -52,24 +52,35 @@ CPPFLAGS=-DFLUTTER_PLUGIN_IMPL $(patsubst %,-I%,$(INCLUDE_DIRS)) \
 	$(CPPFLAGS.$(BUILD)) $(EXTRA_CPPFLAGS)
 LDFLAGS=-shared -L$(FLUTTER_EPHEMERAL_DIR) -l$(FLUTTER_LIB_NAME) $(EXTRA_LDFLAGS)
 
+echo $(CPPFLAGS)
+
 # Final output files that will be used by applications.
 LIBRARY_OUT=$(OUT_DIR)/lib$(PLUGIN_NAME)_plugin.so
 
 # Intermediate files.
 OBJ_FILES=$(SOURCES:%.cc=$(OBJ_DIR)/%.o)
+
+echo $(OBJ_FILES)
+
 DEPENDENCY_FILES=$(OBJ_FILES:%.o=%.d)
+
+echo $(DEPENDENCY_FILES)
 
 # Targets
 
 .PHONY: all
+
 all: $(PLUGIN_NAME)
 
 .PHONY: $(PLUGIN_NAME)
+
 $(PLUGIN_NAME) : $(LIBRARY_OUT)
 
 $(LIBRARY_OUT): $(OBJ_FILES)
 	mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $^ $(LDFLAGS) -o $@
+
+# include https://blog.csdn.net/haoel/article/details/2888
 
 -include $(DEPENDENCY_FILES)
 
