@@ -52,7 +52,7 @@ CPPFLAGS=-DFLUTTER_PLUGIN_IMPL $(patsubst %,-I%,$(INCLUDE_DIRS)) \
 	$(CPPFLAGS.$(BUILD)) $(EXTRA_CPPFLAGS)
 LDFLAGS=-shared -L$(FLUTTER_EPHEMERAL_DIR) -l$(FLUTTER_LIB_NAME) $(EXTRA_LDFLAGS)
 
-echo $(CPPFLAGS)
+$(info [log] CPPFLAGS: ${CPPFLAGS})
 
 # Final output files that will be used by applications.
 LIBRARY_OUT=$(OUT_DIR)/lib$(PLUGIN_NAME)_plugin.so
@@ -60,17 +60,17 @@ LIBRARY_OUT=$(OUT_DIR)/lib$(PLUGIN_NAME)_plugin.so
 # Intermediate files.
 OBJ_FILES=$(SOURCES:%.cc=$(OBJ_DIR)/%.o)
 
-echo $(OBJ_FILES)
+$(info [log] OBJ_FILES: ${OBJ_FILES})
 
 DEPENDENCY_FILES=$(OBJ_FILES:%.o=%.d)
 
-echo $(DEPENDENCY_FILES)
+$(info [log] DEPENDENCY_FILES: ${DEPENDENCY_FILES})
 
 # Targets
 
 .PHONY: all
 
-all: $(PLUGIN_NAME)
+all: $(PLUGIN_NAME) hello_lib
 
 .PHONY: $(PLUGIN_NAME)
 
@@ -87,6 +87,10 @@ $(LIBRARY_OUT): $(OBJ_FILES)
 $(OBJ_DIR)/%.o : %.cc
 	mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -MMD -c $< -o $@
+
+.PHONY: hello_lib
+hello_lib:
+	cd ../hello_library && cmake . && make
 
 .PHONY: clean
 clean:
