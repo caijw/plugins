@@ -11,7 +11,15 @@ endif
 
 # Dependency locations
 # Default to building in the plugin directory.
+
+# CURDIR: 当前 Makefile 所在目录 /mnt/hgfs/WeOS/plugins/binder/linux
+# OUT_DIR: app所在目录的 build/linux 目录 /mnt/hgfs/WeOS/plugins_demo/demo1/linux/../build/linux
 OUT_DIR=$(CURDIR)/../build/linux
+
+$(info [log] CURDIR: ${CURDIR})
+
+$(info [log] OUT_DIR: ${OUT_DIR})
+
 # Sharing an OUT_DIR will be common, so use a subdirectory for intermediates.
 PLUGIN_OUT_DIR=$(OUT_DIR)/$(PLUGIN_NAME)
 OBJ_DIR=$(PLUGIN_OUT_DIR)/obj/$(BUILD)
