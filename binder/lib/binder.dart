@@ -25,8 +25,8 @@ class Binder {
       } else if (Platform.isWindows) {
         home = envVars['UserProfile'];
       }
-      var path = home + "/lib/libbinder_test.so";
-      if (Platform.isMacOS) path = home +  '/lib/libbinder_test.dylib';
+      var path = home + "/lib/libtestIpcClient.so";
+      if (Platform.isMacOS) path = home +  '/lib/libtestIpcClient.dylib';
       _dylib = ffi.DynamicLibrary.open(path);
     }
     // Look up the C function 'hello_world'
