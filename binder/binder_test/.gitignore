@@ -2,7 +2,6 @@
 CMakeCache.txt
 CMakeFiles/
 CmakeScripts/
-Makefile
 cmake_install.cmake
 
 # Xcode tooling generated via `cmake -G Xcode .`
