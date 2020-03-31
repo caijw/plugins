@@ -12,14 +12,15 @@ Client::Client(const Client &)
 {
 }
 
-Client::Client &operator=(const Client &)
+Client & Client::operator=(const Client &)
 {
+    return getInstance();
 }
 
-static Client &Client::getInstance()
+Client &Client::getInstance()
 {
     static Client instance;
-    return Client;
+    return instance;
 }
 
 void Client::sayHello()
@@ -31,4 +32,14 @@ void Client::sayHello()
     std::cout << "[log][c++]before Client::sayHello" << std::endl;
     service_->sayHello();
     std::cout << "[log][c++]after Client::sayHello" << std::endl;
+}
+
+void sayHello(){
+    Client &client = Client::getInstance();
+    client.sayHello();
+}
+
+void hello_world() {
+    Client &client = Client::getInstance();
+    client.sayHello();
 }

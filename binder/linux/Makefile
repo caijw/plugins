@@ -78,7 +78,7 @@ $(info [log] DEPENDENCY_FILES: ${DEPENDENCY_FILES})
 
 .PHONY: all
 
-all: $(PLUGIN_NAME) hello_lib
+all: $(PLUGIN_NAME)
 
 .PHONY: $(PLUGIN_NAME)
 
@@ -95,10 +95,6 @@ $(LIBRARY_OUT): $(OBJ_FILES)
 $(OBJ_DIR)/%.o : %.cc
 	mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -MMD -c $< -o $@
-
-.PHONY: hello_lib
-hello_lib:
-	cd ../hello_library && cmake . && make
 
 .PHONY: clean
 clean:
