@@ -1,14 +1,26 @@
-# ipc
+# ipc package
 
-A new Flutter package project.
+## TODO
 
-## Getting Started
+这个包是手写的，后面弄个工具自动生成
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## WARNING
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+1. only for linux
+2. 只有调用`flush()`才会发送实际的请求给`server`
+
+## HOW TO USE
+
+1. 设置so目录的环境变量`weos_client_sdk_path`
+
+比如`export weos_client_sdk_path='/home/jingweicai/Documents/code/client-sdk'`
+
+2. 项目中引入改package
+
+```yml
+  ipc:
+    git:
+      url: https://github.com/caijw/plugins
+      path: binder
+      ref: master
+```
