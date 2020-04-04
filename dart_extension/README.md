@@ -1,13 +1,7 @@
-This directory contains samples of native extensions.
+# dart extension example
 
-To run the samples, first build both the Dart SDK and the runtime. For example:
+linux 平台
 
-```
-$ ./tools/build.py create_sdk runtime
-```
+构建 so: `build.sh`
 
-Then execute the sample programs. For example:
-
-```
-$ xcodebuild/ReleaseX64/dart samples/sample_extension/test/sample_extension_test.dart
-```
+运行代码: `dart test_sample_synchronous_extension.dart`
