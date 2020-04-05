@@ -10,11 +10,10 @@
     {
       "name": "my_app",
       "rootUri": "../",
-      "packageUri": "lib/",
-      "languageVersion": "2.7"
+      "packageUri": "lib/"
     }
   ],
-  "generated": "2020-04-05T09:36:42.724622Z",
+  "generated": "2020-04-05T11:22:44.887206Z",
   "generator": "pub",
-  "generatorVersion": "2.7.2"
+  "generatorVersion": "2.8.0-dev.18.0.flutter-1402e8e1a4"
 }
