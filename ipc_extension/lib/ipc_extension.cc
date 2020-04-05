@@ -50,9 +50,9 @@ void setDesktopWindow(Dart_NativeArguments arguments)
     
     std::cout << "setDesktopWindow" << std::endl;
 
-    const char *title;
+    // const char *title;
 
-    HandleError(Dart_StringToCString(arguments[0], &title));
+    // HandleError(Dart_StringToCString(arguments[0], &title));
 
     // setDesktopWindow(title);
     Dart_ExitScope();
@@ -80,7 +80,8 @@ void flush(Dart_NativeArguments arguments)
 {
     Dart_EnterScope();
     std::cout << "flush" << std::endl;
-    Dart_Handle result = HandleError(Dart_NewInteger(0));
+    Dart_Handle result = Dart_NewInteger(0);
+    HandleError(result);
     Dart_SetReturnValue(arguments, result);
     Dart_ExitScope();
 }
