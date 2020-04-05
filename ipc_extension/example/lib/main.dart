@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:ipc_extension/ipc_extension.dart';
 
 void main() {
+  setDesktopWindow('123');
   runApp(MyApp());
 }
 
