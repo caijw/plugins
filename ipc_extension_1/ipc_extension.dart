@@ -13,11 +13,8 @@ int flush() native "flush";
 
 
 // void setDesktopWindow(String title) {
-  
 //   print('dart setDesktopWindow');
-
 // }
-
 // void setDrawerWindow(String title) {
 //   print('dart setDrawerWindow');
 // }
