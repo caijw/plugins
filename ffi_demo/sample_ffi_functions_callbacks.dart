@@ -1,6 +1,4 @@
-// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
+// 打开动态链接库
 
 import 'dart:ffi';
 
@@ -38,13 +36,14 @@ main() {
 
   {
     // Pass a c pointer to a c function as an argument to a c function.
+    // 传递一个 c 函数指针给一个 c 函数
     Pointer<NativeFunction<NativeCoordinateOp>> transposeCoordinatePointer =
-        ffiTestFunctions.lookup("TransposeCoordinate");
+        ffiTestFunctions.lookup("TransposeCoordinate"); // 查找 c 函数 TransposeCoordinate，定义为 c 函数指针
     Pointer<NativeFunction<CoordinateTrice>> p2 =
         ffiTestFunctions.lookup("CoordinateUnOpTrice");
     CoordinateTrice coordinateUnOpTrice = p2.asFunction();
     Coordinate c1 = Coordinate.allocate(10.0, 20.0, nullptr);
-    c1.next = c1.addressOf;
+    c1.next = c1.addressOf; // 循环指针。。。
     Coordinate result =
         coordinateUnOpTrice(transposeCoordinatePointer, c1.addressOf).ref;
     print(result.runtimeType);
@@ -54,6 +53,7 @@ main() {
 
   {
     // Return a c pointer to a c function from a c function.
+    // 从 一个 c 函数放回一个 c 函数指针
     Pointer<NativeFunction<NativeIntptrBinOpLookup>> p14 =
         ffiTestFunctions.lookup("IntptrAdditionClosure");
     NativeIntptrBinOpLookup intptrAdditionClosure = p14.asFunction();
@@ -65,8 +65,9 @@ main() {
   }
 
   {
+
     Pointer<NativeFunction<NativeIntptrBinOp>> pointer =
-        Pointer.fromFunction(myPlus, 0);
+        Pointer.fromFunction(myPlus, 0); // dart 函数转换为 c 函数指针
     print(pointer);
 
     Pointer<NativeFunction<NativeApplyTo42And74Type>> p17 =

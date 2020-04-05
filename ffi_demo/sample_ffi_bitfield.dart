@@ -1,6 +1,7 @@
-// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
+// 在 dart 里面定义一个 c 结构体
+// 然后对结构体的各个字段进行赋值
+
+
 
 import 'dart:ffi';
 
@@ -17,7 +18,7 @@ import 'package:ffi/ffi.dart';
 ///     unsigned int font      : 4;
 /// } ScreenCellAttrs;
 class ScreenCellAttrs extends Struct {
-  @Int16()
+  @Int16() //  a native signed 16 bit integer in C
   int bits;
 
   int get bold => getBits(kBoldFieldOffset, kBoldFieldLength);
@@ -70,7 +71,9 @@ const int kStrikeFieldLength = 1;
 const int kFontFieldOffset = kStrikeFieldOffset + kStrikeFieldLength;
 const int kFontFieldLength = 4;
 
+
 /// Extension to use a 64-bit integer as bit field.
+// 扩展 int 的 IntBitField
 extension IntBitField on int {
   static int _bitMask(int offset, int lenght) => ((1 << lenght) - 1) << offset;
 
@@ -93,7 +96,11 @@ extension IntBitField on int {
 }
 
 main() {
-  final p = allocate<ScreenCellAttrs>(count: 3);
+
+  // int tmp = 12345678901234567890;
+  // print('tmp: ${tmp}');
+
+  final p = allocate<ScreenCellAttrs>(count: 1); // 申请 cout 个 ScreenCellAttrs 对象的空间
 
   // Zeroes out all fields.
   p.ref.bits = 0;
