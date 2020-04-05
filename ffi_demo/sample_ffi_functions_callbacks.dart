@@ -74,7 +74,7 @@ main() {
         ffiTestFunctions.lookup("ApplyTo42And74");
     ApplyTo42And74Type applyTo42And74 = p17.asFunction();
 
-    int result = applyTo42And74(pointer);
+    int result = applyTo42And74(pointer); // 将 dart 函数传递给 c 函数作为回调
     print(result);
   }
 
