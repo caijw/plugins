@@ -64,7 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _testTime = 100;
   int _strLen = 100000;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
+    String platformVersion = await Plugin1.platformVersion;
+    print('platformVersion: ${platformVersion}');
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below

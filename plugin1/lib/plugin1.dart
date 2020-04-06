@@ -21,17 +21,35 @@ class Plugin1 {
   static const MethodChannel _channel =
       const MethodChannel('plugin1');
 
+  static void initSetMethodCallHandler() {
+    if (_initSetMethodCallHandler == true) {
+      return;
+    }
+    _initSetMethodCallHandler = true;
+    _channel.setMethodCallHandler(_wrappedCallback);
+  }
+
+  static bool _initSetMethodCallHandler = false;
+
   static Future<String> get platformVersion async {
+    initSetMethodCallHandler();
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
 
   static Future<String>  echoBigString(String str) async {
+    initSetMethodCallHandler();
     final String receiveStr = await _channel.invokeMethod('echoBigString', str);
     return receiveStr;
   }
   static Future<String>  echoBigStringV2(String str) async {
+    initSetMethodCallHandler();
     final String receiveStr = Utf8.fromUtf8( _echoBigStringV2(Utf8.toUtf8(str)) );
     return receiveStr;
+  }
+  static Future<Null> _wrappedCallback(MethodCall methodCall) async {
+    // throw '111';
+    String args = methodCall.arguments;
+    print('receive method call from c++, method: ${methodCall.method}, args: ${args}');
   }
 }
