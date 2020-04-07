@@ -4,7 +4,7 @@ char *echoBigString(char *str){
   return str;
 }
 
-typedef intptr_t (*IntptrBinOp)(intptr_t a, intptr_t b);
+
 
 // Applies an intptr binop function to 42 and 74.
 // Used for testing passing a function pointer to C.

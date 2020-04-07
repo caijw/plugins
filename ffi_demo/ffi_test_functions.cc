@@ -1028,4 +1028,122 @@ DART_EXPORT void CallbackNativeTypePointerReturn(void* (*f)()) {
   p2[0] = 42;
 }
 
+struct AppInfo {
+  char *appid;
+  char *nickname;
+  char *icon;
+};
+
+DART_EXPORT int getAppList(struct AppInfo* app_info_list[], int* length) {
+  length[0] = 2;
+  struct AppInfo* app_info_list_ = (struct AppInfo*)malloc(sizeof(struct AppInfo) * (length[0]));
+  if (!app_info_list_) {
+    return -1;
+  }
+
+  app_info_list_[0].appid = (char *)malloc(sizeof(char) * 32);
+  if (!app_info_list_[0].appid) {
+    free(app_info_list_);
+    return -1;
+  }
+  app_info_list_[0].nickname = (char *)malloc(sizeof(char) * 128);
+  if (!app_info_list_[0].nickname) {
+    free(app_info_list_[0].appid);
+    free(app_info_list_);
+    return -1;
+  }
+  app_info_list_[0].icon = (char *)malloc(sizeof(char) * 128);
+  if (!app_info_list_[0].icon) {
+    free(app_info_list_[0].appid);
+    free(app_info_list_[0].nickname);
+    free(app_info_list_);
+    return -1;
+  }
+
+  app_info_list_[0].appid[0] = 'a';
+  app_info_list_[0].appid[1] = 'p';
+  app_info_list_[0].appid[2] = 'p';
+  app_info_list_[0].appid[3] = 'i';
+  app_info_list_[0].appid[4] = 'd';
+  app_info_list_[0].appid[5] = '\0';
+
+  app_info_list_[0].nickname[0] = 'n';
+  app_info_list_[0].nickname[1] = 'i';
+  app_info_list_[0].nickname[2] = 'c';
+  app_info_list_[0].nickname[3] = 'k';
+  app_info_list_[0].nickname[4] = 'n';
+  app_info_list_[0].nickname[5] = 'a';
+  app_info_list_[0].nickname[6] = 'm';
+  app_info_list_[0].nickname[7] = 'e';
+  app_info_list_[0].nickname[8] = '\0';
+
+  app_info_list_[0].icon[0] = 'i';
+  app_info_list_[0].icon[1] = 'c';
+  app_info_list_[0].icon[2] = 'o';
+  app_info_list_[0].icon[3] = 'n';
+  app_info_list_[0].icon[4] = '\0';
+
+  app_info_list_[1].appid = (char *)malloc(sizeof(char) * 32);
+  if (!app_info_list_[1].appid) {
+
+    free(app_info_list_[0].appid);
+    free(app_info_list_[0].nickname);
+    free(app_info_list_[0].icon);
+
+    free(app_info_list_);
+    return -1;
+  }
+  app_info_list_[1].nickname = (char *)malloc(sizeof(char) * 128);
+  if (!app_info_list_[1].nickname) {
+
+    free(app_info_list_[0].appid);
+    free(app_info_list_[0].nickname);
+    free(app_info_list_[0].icon);
+
+    free(app_info_list_[1].appid);
+    free(app_info_list_);
+    return -1;
+  }
+  app_info_list_[1].icon = (char *)malloc(sizeof(char) * 128);
+  if (!app_info_list_[1].icon) {
+
+    free(app_info_list_[0].appid);
+    free(app_info_list_[0].nickname);
+    free(app_info_list_[0].icon);
+
+    free(app_info_list_[1].appid);
+    free(app_info_list_[1].nickname);
+    free(app_info_list_);
+    return -1;
+  }
+
+  app_info_list_[1].appid[0] = 'a';
+  app_info_list_[1].appid[1] = 'p';
+  app_info_list_[1].appid[2] = 'p';
+  app_info_list_[1].appid[3] = 'i';
+  app_info_list_[1].appid[4] = 'd';
+  app_info_list_[1].appid[5] = '\0';
+
+  app_info_list_[1].nickname[0] = 'n';
+  app_info_list_[1].nickname[1] = 'i';
+  app_info_list_[1].nickname[2] = 'c';
+  app_info_list_[1].nickname[3] = 'k';
+  app_info_list_[1].nickname[4] = 'n';
+  app_info_list_[1].nickname[5] = 'a';
+  app_info_list_[1].nickname[6] = 'm';
+  app_info_list_[1].nickname[7] = 'e';
+  app_info_list_[1].nickname[8] = '\0';
+
+  app_info_list_[1].icon[0] = 'i';
+  app_info_list_[1].icon[1] = 'c';
+  app_info_list_[1].icon[2] = 'o';
+  app_info_list_[1].icon[3] = 'n';
+  app_info_list_[1].icon[4] = '\0';
+
+  *app_info_list = app_info_list_;
+
+  return 0;
+
+}
+
 }  // namespace dart

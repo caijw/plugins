@@ -21,3 +21,19 @@ class Coordinate extends Struct {
       ..next = next;
   }
 }
+
+/**
+
+struct AppInfo {
+  char appid*;
+  char nickname*;
+  char icon*;
+};
+
+ */
+
+class AppInfo extends Struct {
+  Pointer<Utf8> appid;
+  Pointer<Utf8> nickname;
+  Pointer<Utf8> icon;
+}

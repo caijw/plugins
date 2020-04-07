@@ -1,6 +1,4 @@
-// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
+// dart 和 c 进行 c 结构体交互
 
 import 'dart:ffi';
 
@@ -8,10 +6,17 @@ import 'package:ffi/ffi.dart';
 
 import 'coordinate.dart';
 
+import 'dylib_utils.dart';
+
+typedef NativeGetAppList = Int32 Function(Pointer<Pointer<AppInfo>> app_info_list, Pointer<Int32> length);
+typedef GetAppList = int Function(Pointer<Pointer<AppInfo>> app_info_list, Pointer<Int32> length);
+
+
 main() {
   print('start main');
 
   {
+    // 一个循环链表，元素是分割的
     // Allocates each coordinate separately in c memory.
     Coordinate c1 = Coordinate.allocate(10.0, 10.0, nullptr);
     Coordinate c2 = Coordinate.allocate(20.0, 20.0, c1.addressOf);
@@ -30,6 +35,7 @@ main() {
   }
 
   {
+    // 连续内存的循环链表
     // Allocates coordinates consecutively in c memory.
     Pointer<Coordinate> c1 = allocate<Coordinate>(count: 3);
     Pointer<Coordinate> c2 = c1.elementAt(1);
@@ -59,6 +65,19 @@ main() {
     print(c is Pointer<Void>);
     print(c is Pointer);
     free(c.addressOf);
+  }
+
+  {
+    DynamicLibrary ffiTestFunctions =
+      dlopenPlatformSpecific("ffi_test_functions");
+    Pointer<Pointer<AppInfo>> app_info_list;
+    Pointer<Int32> length = allocate<Int32>(count: 1);
+
+    GetAppList getAppList = ffiTestFunctions.lookupFunction<NativeGetAppList, GetAppList>("getAppList");
+
+    int ret = getAppList(app_info_list, length);
+    print('getAppList ret: ${ret}');
+
   }
 
   print("end main");
