@@ -14,7 +14,7 @@ String _platformPath(String name, {String path}) {
   throw Exception("Platform not implemented");
 }
 
-DynamicLibrary dlopenPlatformSpecific(String name, {String path = '/mnt/hgfs/WeOS/dart_sdk/samples/ffi/'}) {
+DynamicLibrary dlopenPlatformSpecific(String name, {String path = '/home/jingweicai/Documents/code/plugins/ffi_demo/'}) {
   String fullPath = _platformPath(name, path: path);
   print('fullPath: ${fullPath}');
   return DynamicLibrary.open(fullPath);

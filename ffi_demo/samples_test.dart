@@ -15,11 +15,24 @@ import 'sample_ffi_functions.dart' as sample5;
 import 'sample_ffi_structs.dart' as sample6;
 
 main() {
+  print('\n\n\n\n\n\n========> sample_ffi_bitfield.dart');
   sample0.main();
+
+  print('\n\n\n\n\n\n========> sample_ffi_data.dart');
   sample1.main();
+
+  print('\n\n\n\n\n\n========> sample_ffi_dynamic_library.dart');
   sample2.main();
+
+  print('\n\n\n\n\n\n========> sample_ffi_functions_callbacks.dart');
   sample3.main();
+
+  print('\n\n\n\n\n\n========> sample_ffi_functions_structs.dart');
   sample4.main();
+
+  print('\n\n\n\n\n\n========> sample_ffi_functions.dart');
   sample5.main();
+
+  print('\n\n\n\n\n\n========> sample_ffi_structs.dart');
   sample6.main();
 }
