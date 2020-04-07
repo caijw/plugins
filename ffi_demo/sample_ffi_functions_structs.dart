@@ -1,6 +1,4 @@
-// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
+// dart 和 c 的结构体 进行交互
 
 import 'dart:ffi';
 
@@ -19,6 +17,7 @@ main() {
 
   {
     // Pass a struct to a c function and get a struct as return value.
+    // dart 传递一个 结构体给 c，c 返回一个 结构体给 dart
     Pointer<NativeFunction<NativeCoordinateOp>> p1 =
         ffiTestFunctions.lookup("TransposeCoordinate");
     NativeCoordinateOp f1 = p1.asFunction();
@@ -29,17 +28,18 @@ main() {
 
     Coordinate result = f1(c1.addressOf).ref;
 
-    print(c1.x);
-    print(c1.y);
+    print('c1.x ${c1.x}');
+    print('c1.y ${c1.y}');
 
-    print(result.runtimeType);
+    print('result.runtimeType ${result.runtimeType}');
 
-    print(result.x);
-    print(result.y);
+    print('result.x ${result.x}');
+    print('result.y ${result.y}');
   }
 
   {
     // Pass an array of structs to a c funtion.
+    // 传递一个 结构体数组给 c 函数，返回数组的第二个元素
     Pointer<NativeFunction<NativeCoordinateOp>> p1 =
         ffiTestFunctions.lookup("CoordinateElemAt1");
     NativeCoordinateOp f1 = p1.asFunction();

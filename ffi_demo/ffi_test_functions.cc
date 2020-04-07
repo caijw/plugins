@@ -538,7 +538,7 @@ DART_EXPORT Coord* TransposeCoordinate(Coord* coord) {
 // Used for testing struct arrays.
 DART_EXPORT Coord* CoordinateElemAt1(Coord* coord) {
   std::cout << "CoordinateElemAt1(" << coord << ")\n";
-  std::cout << "sizeof(Coord): " << sizeof(Coord) << "\n";
+  std::cout << "sizeof(Coord): " << sizeof(Coord) << "\n"; // sizeof 打印 Coord 结构体占用内存的大小
   std::cout << "coord[0] = {" << coord[0].x << ", " << coord[0].y << ", "
             << coord[0].next << "}\n";
   std::cout << "coord[1] = {" << coord[1].x << ", " << coord[1].y << ", "

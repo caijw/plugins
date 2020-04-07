@@ -1,5 +1,5 @@
 // 打开动态链接库
-
+// 跟 dart 跟 c 进行交互
 import 'dart:ffi';
 
 import 'coordinate.dart';
@@ -53,7 +53,7 @@ main() {
 
   {
     // Return a c pointer to a c function from a c function.
-    // 从 一个 c 函数放回一个 c 函数指针
+    // 从 一个 c 函数返回一个 c 函数指针
     Pointer<NativeFunction<NativeIntptrBinOpLookup>> p14 =
         ffiTestFunctions.lookup("IntptrAdditionClosure");
     NativeIntptrBinOpLookup intptrAdditionClosure = p14.asFunction();
@@ -65,7 +65,7 @@ main() {
   }
 
   {
-
+    // dart 函数 传递给 c 进行调用
     Pointer<NativeFunction<NativeIntptrBinOp>> pointer =
         Pointer.fromFunction(myPlus, 0); // dart 函数转换为 c 函数指针
     print(pointer);
