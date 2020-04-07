@@ -1,6 +1,4 @@
-// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
+// dart 和 c 函数交互
 
 import 'dart:ffi';
 
@@ -82,6 +80,7 @@ main() {
 
   {
     // A int32 bin op.
+    // c 执行加法后返回给 dart
     BinaryOp sumPlus42 =
         ffiTestFunctions.lookupFunction<NativeBinaryOp, BinaryOp>("SumPlus42");
 
@@ -201,6 +200,7 @@ main() {
 
   {
     // Passing in null for an int argument throws a null pointer exception.
+    // 不能给 int 参数传 null
     BinaryOp sumPlus42 =
         ffiTestFunctions.lookupFunction<NativeBinaryOp, BinaryOp>("SumPlus42");
 
@@ -214,6 +214,7 @@ main() {
 
   {
     // Passing in null for a double argument throws a null pointer exception.
+    // 不能给 doubel 参数传 null
     DoubleUnaryOp times1_337Double = ffiTestFunctions
         .lookupFunction<NativeDoubleUnaryOp, DoubleUnaryOp>("Times1_337Double");
 
@@ -227,6 +228,7 @@ main() {
 
   {
     // Passing in null for an int argument throws a null pointer exception.
+    // 不能给 int 参数传 null
     VigesimalOp sumManyNumbers = ffiTestFunctions
         .lookupFunction<NativeVigesimalOp, VigesimalOp>("SumManyNumbers");
 
