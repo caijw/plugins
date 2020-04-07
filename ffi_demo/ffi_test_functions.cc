@@ -1034,7 +1034,8 @@ struct AppInfo {
   char *icon;
 };
 
-DART_EXPORT int getAppList(struct AppInfo* app_info_list[], int* length) {
+DART_EXPORT int getAppList(struct AppInfo **app_info_list, int* length) {
+  // return 0;
   length[0] = 2;
   struct AppInfo* app_info_list_ = (struct AppInfo*)malloc(sizeof(struct AppInfo) * (length[0]));
   if (!app_info_list_) {

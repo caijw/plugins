@@ -11,6 +11,16 @@ import 'dylib_utils.dart';
 typedef NativeGetAppList = Int32 Function(Pointer<Pointer<AppInfo>> app_info_list, Pointer<Int32> length);
 typedef GetAppList = int Function(Pointer<Pointer<AppInfo>> app_info_list, Pointer<Int32> length);
 
+class App_Info {
+  String appid = '';
+  String nickname = '';
+  String icon = '';
+  App_Info(String appid_, String nickname_, String icon_) {
+    appid = appid_;
+    nickname = nickname_;
+    icon = icon_;
+  }
+}
 
 main() {
   print('start main');
@@ -68,15 +78,34 @@ main() {
   }
 
   {
-    DynamicLibrary ffiTestFunctions =
-      dlopenPlatformSpecific("ffi_test_functions");
-    Pointer<Pointer<AppInfo>> app_info_list;
+    print('begin getAppList');
+    DynamicLibrary ffiTestFunctions = dlopenPlatformSpecific("ffi_test_functions");
+    Pointer<Pointer<AppInfo>> app_info_list = allocate<Pointer<AppInfo>>(count: 1);
     Pointer<Int32> length = allocate<Int32>(count: 1);
 
     GetAppList getAppList = ffiTestFunctions.lookupFunction<NativeGetAppList, GetAppList>("getAppList");
 
     int ret = getAppList(app_info_list, length);
     print('getAppList ret: ${ret}');
+    print('length.value: ${length.value}');
+    List<App_Info> app_infos = [];
+    if (ret == 0) {
+      Pointer<AppInfo> p = app_info_list.value;
+      for (int i = 0; i < length.value; ++i) {
+        App_Info app_info = App_Info( Utf8.fromUtf8(p.elementAt(i).ref.appid), Utf8.fromUtf8(p.elementAt(i).ref.nickname), Utf8.fromUtf8(p.elementAt(i).ref.icon) );
+        app_infos.add(app_info);
+        free(p.elementAt(i).ref.appid);
+        free(p.elementAt(i).ref.nickname);
+        free(p.elementAt(i).ref.icon);
+      }
+      free(app_info_list.value);
+      print('app_infos:');
+      for (int i = 0; i < app_infos.length; ++i) {
+        print('[${i}]appid: ${app_infos[i].appid}, nickname: ${app_infos[i].nickname}, icon: ${app_infos[i].icon}');
+      }
+    }
+
+
 
   }
 
