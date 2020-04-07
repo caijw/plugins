@@ -159,6 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
 
+
             RaisedButton(
               child: Text(
                   '[ffi echoBigString]_strLen:${_strLen}, time: ${_testTime}'),
@@ -174,7 +175,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 print('[ffi]test time: ${_testTime}, string length: ${_strLen}, total cost: ${totalTime} milliseconds, avarege cost: ${totalTime / _testTime} milliseconds');
               },
             ),
-
+            RaisedButton(
+              child: Text('ffiRunDartCallbackInC'),
+              onPressed: () async {
+                int result = await Plugin1.ffiRunDartCallbackInC();
+                print('ffiRunDartCallbackInC result: ${result}');
+              },
+            ),
 
           ],
         ),

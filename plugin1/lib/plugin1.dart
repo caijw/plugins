@@ -8,6 +8,26 @@ import 'dart:io' show Platform;
 import 'package:ffi/ffi.dart';
 
 
+
+
+typedef BinaryOp = int Function(int, int);
+typedef NativeIntptrBinOp = IntPtr Function(IntPtr, IntPtr);
+typedef NativeIntptrBinOpLookup = Pointer<NativeFunction<NativeIntptrBinOp>>
+    Function();
+
+typedef NativeApplyTo42And74Type = IntPtr Function(
+    Pointer<NativeFunction<NativeIntptrBinOp>>);
+
+typedef ApplyTo42And74Type = int Function(
+    Pointer<NativeFunction<NativeIntptrBinOp>>);
+
+int myPlus(int a, int b) {
+  print("myPlus");
+  print(a);
+  print(b);
+  return a + b;
+}
+
 // char *echoBigString(char *str);
 typedef _echoBigString_func = Pointer<Utf8> Function(Pointer<Utf8> title);
 typedef _echoBigString = Pointer<Utf8> Function(Pointer<Utf8> title);
@@ -51,5 +71,17 @@ class Plugin1 {
     // throw '111';
     String args = methodCall.arguments;
     print('receive method call from c++, method: ${methodCall.method}, args: ${args}');
+  }
+  static ffiRunDartCallbackInC() {
+
+    Pointer<NativeFunction<NativeIntptrBinOp>> pointer =
+        Pointer.fromFunction(myPlus, 0); // dart 函数转换为 c 函数指针
+    print(pointer);
+
+    Pointer<NativeFunction<NativeApplyTo42And74Type>> p17 =
+        _dylib.lookup("ApplyTo42And74");
+    ApplyTo42And74Type applyTo42And74 = p17.asFunction();
+    int result = applyTo42And74(pointer); // 将 dart 函数传递给 c 函数作为回调
+    return result;
   }
 }
