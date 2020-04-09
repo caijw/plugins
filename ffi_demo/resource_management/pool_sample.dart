@@ -1,8 +1,5 @@
-// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-//
 // Sample illustrating resource management with an explicit pool.
+// pool 管理资源 使用栗子
 
 import 'dart:ffi';
 

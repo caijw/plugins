@@ -1,8 +1,5 @@
-// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-//
 // Sample illustrating resource management with an implicit pool in the zone.
+// zone 里面使用 pool 管理资源的栗子
 
 import 'dart:ffi';
 

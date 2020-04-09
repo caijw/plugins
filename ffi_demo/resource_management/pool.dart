@@ -29,6 +29,9 @@ abstract class ResourceManager {
 }
 
 /// Manages native resources.
+// 这里可能会有两种生成 resource 的方式
+// 一种是调用 pool.allocate 生成资源，这种方式会将资源记录起来，在 releaseAll 执行的时候，对资源进行释放
+// 另外一种是调用方自己生成资源，调用 using 方法注册资源的释放回调函数，在 releaseAll 执行的时候，对资源的释放回调函数进行调用
 class Pool implements ResourceManager {
   /// Native memory under management by this [Pool].
   final List<Pointer<NativeType>> _managedMemoryPointers = [];
@@ -65,6 +68,8 @@ class Pool implements ResourceManager {
   }
 
   /// Releases all resources that this [Pool] manages.
+  // releaseAll 会调用所有的 _managedResourceReleaseCallbacks
+  // 同时 free 掉 _managedMemoryPointers
   void releaseAll() {
     for (final c in _managedResourceReleaseCallbacks) {
       c();
@@ -80,6 +85,7 @@ class Pool implements ResourceManager {
 /// Creates a [Pool] to manage native resources.
 ///
 /// If the isolate is shut down, through `Isolate.kill()`, resources are _not_ cleaned up.
+// 执行完 f 函数后，调用 releaseAll 函数释放资源
 R using<R>(R Function(Pool) f) {
   final p = Pool();
   try {
