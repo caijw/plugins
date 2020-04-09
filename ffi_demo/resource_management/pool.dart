@@ -85,6 +85,7 @@ R using<R>(R Function(Pool) f) {
   try {
     return f(p);
   } finally {
+    // 这里是 finally，f(p) 执行完就释放资源，无论执行是否报错
     p.releaseAll();
   }
 }

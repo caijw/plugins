@@ -23,6 +23,10 @@ void main() {
     );
     print("Main: Helper started.");
     Pointer<SomeResource> resource;
+    // 这部分的逻辑：
+    // 子 isolate 发送一个 resource 的地址过来
+    // main ioslate 收到后，主动执行将子 isolate 关闭
+    // 子 isolate 发送null 消息告诉 main isolate 他被关闭了，main isolate 访问缓存起来的资源地址后释放资源地址
     receiveFromHelper.listen((message) {
       if (message is int) {
         resource = Pointer<SomeResource>.fromAddress(message);
@@ -48,11 +52,13 @@ void main() {
 
 /// If set to `false`, this sample can segfault due to use after free and
 /// double free.
+// 如果这个字段设置为 false ，那么子 isolate 执行一遍就结束了，资源主动释放了
+// 那么 main isolate 再访问已经释放的资源，并且再次进行释放，会有 Segmentation
 const keepHelperIsolateAlive = true;
 
 void helperIsolateMain(SendPort sendToMain) {
   using((Pool pool) {
-    final resource = pool.using(allocateResource(), releaseResource);
+    final resource = pool.using(allocateResource(), releaseResource); // using pool 的函数执行完，就会释放
     pool.onReleaseAll(() {
       // Will only run print if [keepHelperIsolateAlive] is false.
       print("Helper: Releasing all resources.");
