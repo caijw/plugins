@@ -274,8 +274,7 @@ DART_EXPORT intptr_t TestCallbackWrongIsolate(void (*fn)()) {
 typedef bool (*Dart_PostCObjectType)(Dart_Port port_id, Dart_CObject* message);
 Dart_PostCObjectType Dart_PostCObject_ = nullptr;
 
-DART_EXPORT void RegisterDart_PostCObject(
-    Dart_PostCObjectType function_pointer) {
+DART_EXPORT void RegisterDart_PostCObject( Dart_PostCObjectType function_pointer) {
   Dart_PostCObject_ = function_pointer;
 }
 
@@ -457,16 +456,15 @@ class SimulateWork {
   std::thread* thread1;
   std::thread* thread2;
 };
+
 SimulateWork* SimulateWork::running_work_simulator_ = 0;
 
-DART_EXPORT void RegisterMyCallbackBlocking(Dart_Port send_port,
-                                            intptr_t (*callback1)(intptr_t)) {
+DART_EXPORT void RegisterMyCallbackBlocking(Dart_Port send_port, intptr_t (*callback1)(intptr_t)) {
   my_callback_blocking_fp_ = callback1;
   my_callback_blocking_send_port_ = send_port;
 }
 
-DART_EXPORT void RegisterMyCallbackNonBlocking(Dart_Port send_port,
-                                               void (*callback)(intptr_t)) {
+DART_EXPORT void RegisterMyCallbackNonBlocking(Dart_Port send_port, void (*callback)(intptr_t)) {
   my_callback_non_blocking_fp_ = callback;
   my_callback_non_blocking_send_port_ = send_port;
 }

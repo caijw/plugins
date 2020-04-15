@@ -26,13 +26,21 @@ main() async {
   print("C T2 = Some C thread executing C.");
   print("C    = C T1 or C T2.");
   print("Dart: Setup.");
+  // 生成 port
   registerDart_PostCObject(NativeApi.postCObject);
 
   final interactiveCppRequests = ReceivePort()..listen(requestExecuteCallback);
+
+  // 传递给 c 的 sendPort id
   final int nativePort = interactiveCppRequests.sendPort.nativePort;
+
+  
   registerCallback1(nativePort, callback1FP);
+
   registerCallback2(nativePort, callback2FP);
+
   print("Dart: Tell C to start worker threads.");
+
   startWorkSimulator();
 
   // We need to yield control in order to be able to receive messages.
@@ -111,7 +119,9 @@ final registerDart_PostCObject = dl.lookupFunction<
         Pointer<NativeFunction<Int8 Function(Int64, Pointer<Dart_CObject>)>>
             functionPointer)>('RegisterDart_PostCObject');
 
-class Work extends Struct {}
+class Work extends Struct {
+
+}
 
 Future asyncSleep(int ms) {
   return new Future.delayed(Duration(milliseconds: ms));
