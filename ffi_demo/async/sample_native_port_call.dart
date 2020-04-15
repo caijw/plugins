@@ -121,7 +121,7 @@ void handleCppRequests(dynamic message) {
   }
 }
 
-final dl = dlopenPlatformSpecific("ffi_test_functions");
+final dl = dlopenPlatformSpecific("ffi_test_functions_vmspecific");
 
 final registerSendPort = dl.lookupFunction<Void Function(Int64 sendPort),
     void Function(int sendPort)>('RegisterSendPort');

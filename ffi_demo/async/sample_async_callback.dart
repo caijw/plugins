@@ -78,7 +78,7 @@ final callback1FP = Pointer.fromFunction<IntPtr Function(IntPtr)>(callback1, 0);
 
 final callback2FP = Pointer.fromFunction<Void Function(IntPtr)>(callback2);
 
-final dl = dlopenPlatformSpecific("ffi_test_functions");
+final dl = dlopenPlatformSpecific("ffi_test_functions_vmspecific");
 
 final registerCallback1 = dl.lookupFunction<
         Void Function(Int64 sendPort,

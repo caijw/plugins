@@ -68,7 +68,6 @@ main() {
     // dart 函数 传递给 c 进行调用
     Pointer<NativeFunction<NativeIntptrBinOp>> pointer =
         Pointer.fromFunction(myPlus, 0); // dart 函数转换为 c 函数指针
-    print(pointer);
 
     Pointer<NativeFunction<NativeApplyTo42And74Type>> p17 =
         ffiTestFunctions.lookup("ApplyTo42And74");
