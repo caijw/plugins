@@ -10,12 +10,7 @@
 #include <csignal>
 
 #include "platform/globals.h"
-#if defined(HOST_OS_WINDOWS)
-#include <psapi.h>
-#include <windows.h>
-#else
 #include <unistd.h>
-#endif
 
 // Only OK to use here because this is test code.
 #include <condition_variable>  // NOLINT(build/c++11)

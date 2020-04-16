@@ -34,13 +34,13 @@ main() async {
   // 传递给 c 的 sendPort id
   final int nativePort = interactiveCppRequests.sendPort.nativePort;
 
-  
+  // 函数指针注册给 c  
   registerCallback1(nativePort, callback1FP);
-
+  // 函数指针注册给 c
   registerCallback2(nativePort, callback2FP);
 
   print("Dart: Tell C to start worker threads.");
-
+  // 启动 c 多线程
   startWorkSimulator();
 
   // We need to yield control in order to be able to receive messages.
@@ -51,7 +51,7 @@ main() async {
   print("Dart: Received expected number of callbacks.");
   assert(2 == numCallbacks1);
   assert(3 == numCallbacks2);
-  assert(14 == globalResult);
+  assert(14 == globalResult); // 0 + (5+3) + (3 + 3)
   // Expect.equals(2, numCallbacks1);
   // Expect.equals(3, numCallbacks2);
   // Expect.equals(14, globalResult);
@@ -61,13 +61,13 @@ main() async {
   interactiveCppRequests.close();
   print("Dart: Done.");
 }
-
+// c 调用了两次
 int callback1(int a) {
   print("Dart:     callback1($a).");
   numCallbacks1++;
   return a + 3;
 }
-
+// c 调用了三次
 void callback2(int a) {
   print("Dart:     callback2($a).");
   globalResult += a;
